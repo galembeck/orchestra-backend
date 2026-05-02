@@ -1,6 +1,7 @@
 using API.Public.Configuration;
 using API.Public.Extensions;
 using Domain.Constants;
+using Domain.Services;
 using Domain.Utils;
 using Domain.Utils.Constants;
 using Microsoft.EntityFrameworkCore;
@@ -70,6 +71,20 @@ builder.Services.ConfigureCustomServices(builder.Configuration);
     var app = builder.Build();
 
     #endregion .: WEB HOST SERVICES :.
+
+
+
+    #region .: STARTUP SEEDING :.
+
+    // Idempotently populates the Permission table from PermissionKey constants.
+    // Required before any company can be approved or any role assigned permissions.
+    using (var scope = app.Services.CreateScope())
+    {
+        var rbac = scope.ServiceProvider.GetRequiredService<IRbacService>();
+        await rbac.SeedSystemRolesAndPermissionsAsync();
+    }
+
+    #endregion .: STARTUP SEEDING :.
 
 
 
