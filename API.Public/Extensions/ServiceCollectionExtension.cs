@@ -1,5 +1,4 @@
 ﻿using API.Public.Configuration;
-using API.Public.Services;
 using AspNetCoreRateLimit;
 using Domain.Constants;
 using Domain.Services;

@@ -90,4 +90,46 @@ public enum BusinessErrorMessage
 
     [EnumDescription("ADDRESS_NOT_FOUND")]
     ADDRESS_NOT_FOUND = 28,
+
+    [EnumDescription("EMAIL_ALREADY_USED")]
+    EMAIL_ALREADY_USED = 29,
+
+    [EnumDescription("CNPJ_ALREADY_USED")]
+    CNPJ_ALREADY_USED = 30,
+
+    [EnumDescription("COMPANY_NOT_FOUND")]
+    COMPANY_NOT_FOUND = 31,
+
+    [EnumDescription("COMPANY_ALREADY_REVIEWED")]
+    COMPANY_ALREADY_REVIEWED = 32,
+
+    [EnumDescription("COMPANY_NOT_APPROVED")]
+    COMPANY_NOT_APPROVED = 33,
+
+    [EnumDescription("ROLE_NOT_FOUND")]
+    ROLE_NOT_FOUND = 34,
+
+    [EnumDescription("ROLE_ALREADY_EXISTS")]
+    ROLE_ALREADY_EXISTS = 35,
+
+    [EnumDescription("CANNOT_MODIFY_SYSTEM_ROLE")]
+    CANNOT_MODIFY_SYSTEM_ROLE = 36,
+
+    [EnumDescription("MEMBER_NOT_FOUND")]
+    MEMBER_NOT_FOUND = 37,
+
+    [EnumDescription("MEMBER_ALREADY_EXISTS")]
+    MEMBER_ALREADY_EXISTS = 38,
+
+    [EnumDescription("CANNOT_REMOVE_OWNER")]
+    CANNOT_REMOVE_OWNER = 39,
+
+    [EnumDescription("PERMISSION_DENIED")]
+    PERMISSION_DENIED = 40,
+
+    [EnumDescription("TERMS_MUST_BE_ACCEPTED")]
+    TERMS_MUST_BE_ACCEPTED = 41,
+
+    [EnumDescription("MISSING_REQUIRED_DOCUMENTS")]
+    MISSING_REQUIRED_DOCUMENTS = 42,
 }
