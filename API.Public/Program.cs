@@ -78,10 +78,24 @@ builder.Services.ConfigureCustomServices(builder.Configuration);
 
     // Idempotently populates the Permission table from PermissionKey constants.
     // Required before any company can be approved or any role assigned permissions.
+    // If the database isn't reachable yet (e.g. migrations haven't run), log a
+    // warning and continue so the dev can still boot the app and apply migrations.
     using (var scope = app.Services.CreateScope())
     {
-        var rbac = scope.ServiceProvider.GetRequiredService<IRbacService>();
-        await rbac.SeedSystemRolesAndPermissionsAsync();
+        var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+        try
+        {
+            var rbac = scope.ServiceProvider.GetRequiredService<IRbacService>();
+            await rbac.SeedSystemRolesAndPermissionsAsync();
+            logger.LogInformation("RBAC permissions seed: completed.");
+        }
+        catch (Exception ex)
+        {
+            logger.LogWarning(ex,
+                "RBAC permissions seed skipped: database not reachable. Run " +
+                "`dotnet ef database update --project Repository --startup-project API.Public` " +
+                "and restart to populate the Permission table.");
+        }
     }
 
     #endregion .: STARTUP SEEDING :.
