@@ -46,6 +46,26 @@ public class UserRepository : BaseRepository<UserEntity>, IUserRepository
         return response;
     }
 
+    public async Task<UserEntity?> GetByEmailOrDocumentAsync(string identifier, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            var normalizedEmail = identifier.Trim().ToLower();
+            var normalizedDoc = new string(identifier.Where(char.IsDigit).ToArray());
+
+            return await _entity
+                .Where(x =>
+                    (x.Email == normalizedEmail || x.Document == normalizedDoc)
+                    && x.DeletedAt == null)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(cancellationToken);
+        }
+        catch (Exception e)
+        {
+            throw new PersistenceException(e);
+        }
+    }
+
     public async Task<UserEntity> GetByDocumentAndEmailAsync(string document, string email, CancellationToken cancellationToken = default)
     {
         UserEntity response;

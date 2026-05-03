@@ -10,6 +10,7 @@ public class CreateUserDTO
     public string Name { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
     public string Cellphone { get; set; } = string.Empty;
+    public string Document { get; set; } = string.Empty;
     public string Password { get; set; } = string.Empty;
     public bool AcceptTerms { get; set; }
 
@@ -29,6 +30,7 @@ public class CreateUserDTO
         Name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(o.Name.ToLower().Trim()),
         Email = o.Email.ToLower().Trim(),
         Cellphone = o.Cellphone,
+        Document = StringUtil.Slugify(o.Document.Trim()),
         Password = o.Password.Trim(),
         ProfileType = ProfileType.CLIENT,
         AccountType = AccountType.CLIENT,

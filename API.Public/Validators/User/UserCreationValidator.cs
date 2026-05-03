@@ -21,6 +21,10 @@ public class UserCreationValidator : BaseValidator<CreateUserDTO>
             .NotEmpty().WithMessage("CANNOT_BE_EMPTY")
             .Length(10, 16).WithMessage("INVALID_LENGHT");
 
+        RuleFor(m => m.Document)
+            .NotEmpty().WithMessage("CANNOT_BE_EMPTY")
+            .Must(StringUtil.IsValidCPF).WithMessage("INVALID_DOCUMENT");
+
         RuleFor(m => m.Password)
             .NotEmpty().WithMessage("CANNOT_BE_EMPTY")
             .Must(SecurityUtil.GetPasswordStrength).WithMessage("INVALID_PASSWORD");

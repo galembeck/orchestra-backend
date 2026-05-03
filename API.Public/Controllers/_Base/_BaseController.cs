@@ -69,34 +69,34 @@ public class _BaseController : ControllerBase
         }
     }
 
-    protected void GenerateAuthCookie(Tokens model)
+    // persistent=true → cookies carry an Expires (survive browser close).
+    // persistent=false → no Expires set, browser treats them as session cookies.
+    protected void GenerateAuthCookie(Tokens model, bool persistent = true)
     {
-        if (_httpContextAccessor?.HttpContext?.Response?.Cookies != null)
-        {
-            _httpContextAccessor.HttpContext.Response.Cookies.Append(
-                "AccessToken",
-                model.AccessToken,
-                new CookieOptions
-                {
-                    Expires = model.AccessTokenExpiresAt,
-                    HttpOnly = true,
-                    Secure = true,
-                    Domain = Constant.Settings.Domain
-                }
-            );
+        if (_httpContextAccessor?.HttpContext?.Response?.Cookies is null)
+            return;
 
-            _httpContextAccessor.HttpContext.Response.Cookies.Append(
-                "RefreshToken",
-                model.RefreshToken,
-                new CookieOptions
-                {
-                    Expires = model.RefreshTokenExpiresAt,
-                    HttpOnly = true,
-                    Secure = true,
-                    Domain = Constant.Settings.Domain
-                }
-            );
+        var accessOpts = new CookieOptions
+        {
+            HttpOnly = true,
+            Secure = true,
+            Domain = Constant.Settings.Domain,
+        };
+        var refreshOpts = new CookieOptions
+        {
+            HttpOnly = true,
+            Secure = true,
+            Domain = Constant.Settings.Domain,
+        };
+
+        if (persistent)
+        {
+            accessOpts.Expires = model.AccessTokenExpiresAt;
+            refreshOpts.Expires = model.RefreshTokenExpiresAt;
         }
+
+        _httpContextAccessor.HttpContext.Response.Cookies.Append("AccessToken", model.AccessToken, accessOpts);
+        _httpContextAccessor.HttpContext.Response.Cookies.Append("RefreshToken", model.RefreshToken, refreshOpts);
     }
 
     protected void RemoveAuthCookie(Tokens model)

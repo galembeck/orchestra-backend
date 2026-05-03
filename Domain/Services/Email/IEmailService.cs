@@ -1,3 +1,5 @@
+// EMAIL SENDING TEMPORARILY DISABLED — uncomment to re-enable.
+#if false
 namespace Domain.Services;
 
 public interface IEmailService
@@ -10,3 +12,4 @@ public interface IEmailService
         string token,
         DateTime expiresAt);
 }
+#endif

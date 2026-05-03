@@ -8,6 +8,7 @@ public interface IUserRepository : IRepository<UserEntity>
 {
     Task<UserEntity> GetByDocumentAsync(string document, CancellationToken cancellationToken = default);
     Task<UserEntity> GetByEmailAsync(string email, CancellationToken cancellationToken = default);
+    Task<UserEntity?> GetByEmailOrDocumentAsync(string identifier, CancellationToken cancellationToken = default);
     Task<UserEntity> GetByDocumentAndEmailAsync(string document, string email, CancellationToken cancellationToken = default);
     Task<UserEntity> GetByDocumentPasswordAsync(string document, string password, CancellationToken cancellationToken = default);
     Task<UserEntity> GetByEmailCellphoneAsync(string email, string cellphone, CancellationToken cancellationToken = default);

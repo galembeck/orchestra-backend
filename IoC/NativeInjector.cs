@@ -42,7 +42,8 @@ public static class NativeInjector
 
         #region .: FILE STORAGE / EMAIL :.
         services.AddScoped<IFileStorageService, FileStorageService>();
-        services.AddScoped<IEmailService, EmailService>();
+        // EMAIL SENDING TEMPORARILY DISABLED — uncomment to re-enable.
+        // services.AddScoped<IEmailService, EmailService>();
         #endregion
     }
 }

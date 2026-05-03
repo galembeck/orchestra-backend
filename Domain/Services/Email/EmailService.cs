@@ -1,3 +1,5 @@
+// EMAIL SENDING TEMPORARILY DISABLED — uncomment to re-enable.
+#if false
 using Domain.Constants;
 using Resend;
 
@@ -88,3 +90,4 @@ public class EmailService(IResend resend) : IEmailService
         </td></tr>
         """);
 }
+#endif

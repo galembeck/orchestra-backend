@@ -24,7 +24,6 @@ public class CompanyService(
         CompanyDocumentType.CNPJ_DOCUMENT,
         CompanyDocumentType.ADDRESS_PROOF,
         CompanyDocumentType.OWNER_IDENTITY,
-        CompanyDocumentType.OPERATING_LICENSE,
     };
 
     public async Task<Company> RegisterAsync(
@@ -43,6 +42,10 @@ public class CompanyService(
 
         if (await userRepository.GetByEmailAsync(owner.Email, cancellationToken) is not null)
             throw new BusinessException(BusinessErrorMessage.EMAIL_ALREADY_USED);
+
+        if (!string.IsNullOrWhiteSpace(owner.Document) &&
+            await userRepository.GetByDocumentAsync(owner.Document, cancellationToken) is not null)
+            throw new BusinessException(BusinessErrorMessage.DOCUMENT_ALREADY_USED);
 
         if (await companyRepository.GetByCnpjAsync(company.Cnpj, cancellationToken) is not null)
             throw new BusinessException(BusinessErrorMessage.CNPJ_ALREADY_USED);

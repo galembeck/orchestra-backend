@@ -13,6 +13,7 @@ public class CompanyRegistrationValidator : BaseValidator<RegisterCompanyDTO>
         RuleFor(m => m.OwnerName).NotEmpty().Length(3, 100).WithMessage("INVALID_LENGHT");
         RuleFor(m => m.OwnerEmail).NotEmpty().EmailAddress().WithMessage("INVALID_EMAIL");
         RuleFor(m => m.OwnerCellphone).NotEmpty().Length(10, 16);
+        RuleFor(m => m.OwnerDocument).NotEmpty().Must(StringUtil.IsValidCPF).WithMessage("INVALID_DOCUMENT");
         RuleFor(m => m.OwnerPassword).NotEmpty().Must(SecurityUtil.GetPasswordStrength).WithMessage("INVALID_PASSWORD");
         RuleFor(m => m.AcceptTerms).Equal(true).WithMessage("TERMS_MUST_BE_ACCEPTED");
         RuleFor(m => m.OwnerZipcode).NotEmpty();
@@ -34,10 +35,9 @@ public class CompanyRegistrationValidator : BaseValidator<RegisterCompanyDTO>
         RuleFor(m => m.City).NotEmpty();
         RuleFor(m => m.State).NotEmpty().Length(2);
 
-        // Documents
+        // Documents — operatingLicense is optional
         RuleFor(m => m.CnpjDocument).NotNull().WithMessage("MISSING_REQUIRED_DOCUMENTS");
         RuleFor(m => m.AddressProof).NotNull().WithMessage("MISSING_REQUIRED_DOCUMENTS");
         RuleFor(m => m.OwnerIdentity).NotNull().WithMessage("MISSING_REQUIRED_DOCUMENTS");
-        RuleFor(m => m.OperatingLicense).NotNull().WithMessage("MISSING_REQUIRED_DOCUMENTS");
     }
 }

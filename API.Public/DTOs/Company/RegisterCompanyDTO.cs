@@ -12,6 +12,7 @@ public class RegisterCompanyDTO
     public string OwnerName { get; set; } = string.Empty;
     public string OwnerEmail { get; set; } = string.Empty;
     public string OwnerCellphone { get; set; } = string.Empty;
+    public string OwnerDocument { get; set; } = string.Empty;
     public string OwnerPassword { get; set; } = string.Empty;
     public bool AcceptTerms { get; set; }
 
@@ -48,6 +49,7 @@ public class RegisterCompanyDTO
         Name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(OwnerName.ToLower().Trim()),
         Email = OwnerEmail.ToLower().Trim(),
         Cellphone = OwnerCellphone,
+        Document = StringUtil.Slugify(OwnerDocument.Trim()),
         Password = OwnerPassword.Trim(),
         ProfileType = ProfileType.CLIENT,
         AccountType = AccountType.COMPANY,

@@ -38,9 +38,9 @@ public class AuthService : IAuthService
         _userService = userService;
     }
 
-    public async Task<Tokens> AuthenticateAsync(string email, string password, UserSecurityInfo securityInfo)
+    public async Task<Tokens> AuthenticateAsync(string identifier, string password, UserSecurityInfo securityInfo)
     {
-        var user = await _userRepository.GetByEmailAsync(email);
+        var user = await _userRepository.GetByEmailOrDocumentAsync(identifier);
 
         if (user is null)
             throw new BusinessException(BusinessErrorMessage.USER_NOT_FOUND);
@@ -369,8 +369,9 @@ public class AuthService : IAuthService
                 u.PasswordChangeTokenExpiresAt = expiresAt;
             });
 
-        _backgroundJobClient.Enqueue<IEmailService>(s =>
-            s.SendPasswordRecoveryEmailAsync(user.Name, user.Email, token, expiresAt.UtcDateTime));
+        // EMAIL SENDING TEMPORARILY DISABLED — uncomment to re-enable.
+        // _backgroundJobClient.Enqueue<IEmailService>(s =>
+        //     s.SendPasswordRecoveryEmailAsync(user.Name, user.Email, token, expiresAt.UtcDateTime));
     }
 
     public async Task<bool> VerifyPasswordRecoveryTokenAsync(string email, string token, CancellationToken cancellationToken = default)

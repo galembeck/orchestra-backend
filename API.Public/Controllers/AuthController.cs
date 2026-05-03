@@ -34,7 +34,9 @@ public class AuthController : _BaseController
         await new AuthenticateValidator().ValidateAndThrowAsync(body);
 
         var model = await _authService
-            .AuthenticateAsync(body.Email, body.Password, securityInfo);
+            .AuthenticateAsync(body.Identifier, body.Password, securityInfo);
+
+        GenerateAuthCookie(model, body.RememberMe);
 
         return Ok(AuthResponseDTO.ModelToDTO(model));
     }
@@ -45,7 +47,10 @@ public class AuthController : _BaseController
     {
         var model = await _authService.RefreshAsync(body.RefreshToken);
 
-        GenerateAuthCookie(model);
+        // Refresh preserves the existing cookie style: if no AccessToken cookie
+        // had Expires (session cookie), there'd be no refresh request at all,
+        // so reaching this path means the user wants to stay logged in.
+        GenerateAuthCookie(model, persistent: true);
 
         return Ok(AuthResponseDTO.ModelToDTO(model));
     }

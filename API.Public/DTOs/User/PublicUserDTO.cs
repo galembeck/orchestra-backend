@@ -11,6 +11,7 @@ public class PublicUserDTO : PublicBaseDTO<User>
     public string Cellphone { get; set; }
     public string Document { get; set; }
     public ProfileType? ProfileType { get; set; }
+    public AccountType? AccountType { get; set; }
 
 
 
@@ -38,6 +39,7 @@ public class PublicUserDTO : PublicBaseDTO<User>
         Cellphone = o.Cellphone;
         Document = o.Document;
         ProfileType = o.ProfileType;
+        AccountType = o.AccountType;
         ReceiveWhatsappOffers = o.ReceiveWhatsappOffers;
         ReceiveEmailOffers = o.ReceiveEmailOffers;
         AvatarUrl = o.AvatarUrl;
@@ -60,6 +62,7 @@ public class PublicUserDTO : PublicBaseDTO<User>
             Cellphone = o.Cellphone,
             Document = o.Document,
             ProfileType = o.ProfileType,
+            AccountType = o.AccountType ?? Domain.Enumerators.AccountType.CLIENT,
             ReceiveWhatsappOffers = o.ReceiveWhatsappOffers,
             ReceiveEmailOffers = o.ReceiveEmailOffers,
             AvatarUrl = o.AvatarUrl,

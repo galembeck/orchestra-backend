@@ -33,8 +33,9 @@ public class UserService(
 
             scope.Complete();
 
-            _backgroundJobClient.Enqueue<IEmailService>(s =>
-                s.SendWelcomeEmailAsync(userSaved.Name, userSaved.Email));
+            // EMAIL SENDING TEMPORARILY DISABLED — uncomment to re-enable.
+            // _backgroundJobClient.Enqueue<IEmailService>(s =>
+            //     s.SendWelcomeEmailAsync(userSaved.Name, userSaved.Email));
 
             return userSaved;
         }

@@ -1,8 +1,12 @@
-﻿namespace API.Public.DTOs;
+namespace API.Public.DTOs;
 
 public sealed record AuthenticateDTO
 {
-    public string Email { get; set; }
-    public string Password { get; set; }
-    //public string idHash { get; set; }
+    // Email or CPF (document). Accepted in either format.
+    public string Identifier { get; set; } = string.Empty;
+    public string Password { get; set; } = string.Empty;
+
+    // When true, auth cookies are persistent (survive browser close).
+    // When false, they are session cookies (cleared when the browser closes).
+    public bool RememberMe { get; set; }
 }
