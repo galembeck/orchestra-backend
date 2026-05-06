@@ -30,6 +30,34 @@ public class UserController(IUserService userService, IHttpContextAccessor httpC
         return Ok(PublicUserDTO.ModelToDTO(model));
     }
 
+    [HttpPost("check-availability")]
+    [AllowAnonymous]
+    public async Task<IActionResult> CheckAvailability(
+    [FromBody] CheckAvailabilityDTO body,
+    CancellationToken cancellationToken = default)
+    {
+        if (string.IsNullOrWhiteSpace(body.Email) && string.IsNullOrWhiteSpace(body.Document))
+            return BadRequest(new { message = "Provide email and/or document." });
+
+        bool emailAvailable = true;
+        bool documentAvailable = true;
+
+        if (!string.IsNullOrWhiteSpace(body.Email))
+        {
+            var byEmail = await _userService.GetUsersByEmail(body.Email, cancellationToken);
+            emailAvailable = byEmail is null || byEmail.Count == 0;
+        }
+
+        if (!string.IsNullOrWhiteSpace(body.Document))
+        {
+            var clean = new string(body.Document.Where(char.IsDigit).ToArray());
+            var byDoc = await _userService.GetByDocumentAsync(clean, cancellationToken);
+            documentAvailable = byDoc is null;
+        }
+
+        return Ok(new { emailAvailable, documentAvailable });
+    }
+
     [AuthAttribute]
     [Filters.Authorize(ProfileType.CLIENT, ProfileType.ADMIN, ProfileType.PLATFORM_DEVELOPER)]
     [HttpGet]
