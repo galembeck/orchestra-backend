@@ -1,5 +1,6 @@
 using Domain.Data.Entities;
 using Domain.Enumerators;
+using Domain.Utils;
 
 namespace API.Public.DTOs;
 
@@ -11,6 +12,7 @@ public class PublicCompanyDTO
     public string Cnpj { get; set; } = string.Empty;
     public string SocialReason { get; set; } = string.Empty;
     public string FantasyName { get; set; } = string.Empty;
+    public string Slug { get; set; } = string.Empty;
 
     public string Zipcode { get; set; } = string.Empty;
     public string Address { get; set; } = string.Empty;
@@ -34,6 +36,7 @@ public class PublicCompanyDTO
         Cnpj = c.Cnpj,
         SocialReason = c.SocialReason,
         FantasyName = c.FantasyName,
+        Slug = StringUtil.GenerateSlug(c.FantasyName),
         Zipcode = c.Zipcode,
         Address = c.Address,
         Number = c.Number,

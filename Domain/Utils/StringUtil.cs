@@ -493,6 +493,16 @@ public static class StringUtil
         return result;
     }
 
+    public static string GenerateSlug(string input)
+    {
+        if (string.IsNullOrWhiteSpace(input))
+            return string.Empty;
+
+        var withoutAccents = RemoveAccents(input).ToLowerInvariant();
+        var collapsed = Regex.Replace(withoutAccents, @"[^a-z0-9]+", "-");
+        return collapsed.Trim('-');
+    }
+
     public static Boolean IsValidGuid(string value)
     {
         if (!Guid.TryParse(value, out _))
