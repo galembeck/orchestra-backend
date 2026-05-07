@@ -16,12 +16,6 @@ public class CompanyRegistrationValidator : BaseValidator<RegisterCompanyDTO>
         RuleFor(m => m.OwnerDocument).NotEmpty().Must(StringUtil.IsValidCPF).WithMessage("INVALID_DOCUMENT");
         RuleFor(m => m.OwnerPassword).NotEmpty().Must(SecurityUtil.GetPasswordStrength).WithMessage("INVALID_PASSWORD");
         RuleFor(m => m.AcceptTerms).Equal(true).WithMessage("TERMS_MUST_BE_ACCEPTED");
-        RuleFor(m => m.OwnerZipcode).NotEmpty();
-        RuleFor(m => m.OwnerAddress).NotEmpty();
-        RuleFor(m => m.OwnerNumber).NotEmpty();
-        RuleFor(m => m.OwnerNeighborhood).NotEmpty();
-        RuleFor(m => m.OwnerCity).NotEmpty();
-        RuleFor(m => m.OwnerState).NotEmpty().Length(2);
 
         // Company
         RuleFor(m => m.Segment).IsInEnum().WithMessage("INVALID_PARAMETER");

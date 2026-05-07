@@ -16,14 +16,6 @@ public class RegisterCompanyDTO
     public string OwnerPassword { get; set; } = string.Empty;
     public bool AcceptTerms { get; set; }
 
-    public string OwnerZipcode { get; set; } = string.Empty;
-    public string OwnerAddress { get; set; } = string.Empty;
-    public string OwnerNumber { get; set; } = string.Empty;
-    public string? OwnerComplement { get; set; }
-    public string OwnerNeighborhood { get; set; } = string.Empty;
-    public string OwnerCity { get; set; } = string.Empty;
-    public string OwnerState { get; set; } = string.Empty;
-
     // Company
     public Segment Segment { get; set; }
     public string Cnpj { get; set; } = string.Empty;
@@ -54,13 +46,6 @@ public class RegisterCompanyDTO
         ProfileType = ProfileType.CLIENT,
         AccountType = AccountType.COMPANY,
         AcceptedTerms = AcceptTerms,
-        Zipcode = OwnerZipcode,
-        Address = OwnerAddress,
-        Number = OwnerNumber,
-        Complement = OwnerComplement,
-        Neighborhood = OwnerNeighborhood,
-        City = OwnerCity,
-        State = OwnerState,
     };
 
     public Company ToCompanyModel() => new()
