@@ -20,6 +20,16 @@ public class PublicUserDTO : PublicBaseDTO<User>
 
 
 
+    public string? Zipcode { get; set; } = string.Empty;
+    public string? Address { get; set; } = string.Empty;
+    public string? Number { get; set; } = string.Empty;
+    public string? Complement { get; set; }
+    public string? Neighborhood { get; set; } = string.Empty;
+    public string? City { get; set; } = string.Empty;
+    public string? State { get; set; } = string.Empty;
+
+
+
     public string? AvatarUrl { get; set; }
 
 
@@ -43,6 +53,13 @@ public class PublicUserDTO : PublicBaseDTO<User>
         ReceiveWhatsappOffers = o.ReceiveWhatsappOffers;
         ReceiveEmailOffers = o.ReceiveEmailOffers;
         AvatarUrl = o.AvatarUrl;
+        Zipcode = o.Zipcode;
+        Address = o.Address;
+        Number = o.Number;
+        Complement = o.Complement;
+        Neighborhood = o.Neighborhood;
+        City = o.City;
+        State = o.State;
         CreatedAt = o.CreatedAt;
         LastAccessAt = o.LastAccessAt;
     }
@@ -66,6 +83,13 @@ public class PublicUserDTO : PublicBaseDTO<User>
             ReceiveWhatsappOffers = o.ReceiveWhatsappOffers,
             ReceiveEmailOffers = o.ReceiveEmailOffers,
             AvatarUrl = o.AvatarUrl,
+            Zipcode = o.Zipcode,
+            Address = o.Address,
+            Number = o.Number,
+            Complement = o.Complement,
+            Neighborhood = o.Neighborhood,
+            City = o.City,
+            State = o.State,
             CreatedAt = o.CreatedAt,
             LastAccessAt = o.LastAccessAt,
         };
