@@ -21,7 +21,7 @@ public static class ControllersInitializer
 
         services.Configure<FormOptions>(options =>
         {
-            options.MultipartBodyLengthLimit = 5 * 1024 * 1024; // 5MB
+            options.MultipartBodyLengthLimit = 50 * 1024 * 1024; // 50MB
             options.ValueLengthLimit = int.MaxValue;
             options.MultipartHeadersLengthLimit = int.MaxValue;
         });

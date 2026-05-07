@@ -60,7 +60,7 @@ builder.Services.ConfigureCustomServices(builder.Configuration);
         {
             options.AddServerHeader = false;
 
-            options.Limits.MaxRequestBodySize = 5 * 1024 * 1024; // 5MB
+            options.Limits.MaxRequestBodySize = 50 * 1024 * 1024; // 50MB
 
             if (!Debugger.IsAttached)
             {
