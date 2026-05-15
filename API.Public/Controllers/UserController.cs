@@ -12,10 +12,14 @@ namespace API.Public.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class UserController(IUserService userService, IHttpContextAccessor httpContextAccessor)
+public class UserController(
+    IUserService userService,
+    ICompanyService companyService,
+    IHttpContextAccessor httpContextAccessor)
     : _BaseController(httpContextAccessor)
 {
     private readonly IUserService _userService = userService ?? throw new ArgumentNullException(nameof(userService));
+    private readonly ICompanyService _companyService = companyService;
 
     [HttpPost]
     [AllowAnonymous]
@@ -67,7 +71,24 @@ public class UserController(IUserService userService, IHttpContextAccessor httpC
 
         User response = await _userService.GetUserAsync(Authenticated.User.Id, securityInfo, cancellationToken);
 
-        return Ok(PublicUserDTO.ModelToDTO(response));
+        var dto = PublicUserDTO.ModelToDTO(response);
+
+        if (response?.AccountType == Domain.Enumerators.AccountType.WORKER)
+        {
+            var ctx = await _companyService.GetWorkerContextAsync(response.Id, cancellationToken);
+            if (ctx is not null)
+                dto.Worker = WorkerContextDTO.Build(ctx.Value.member, ctx.Value.company, ctx.Value.role);
+        }
+
+        if (response?.AccountType == Domain.Enumerators.AccountType.COMPANY)
+        {
+            var companies = await _companyService.GetForUserAsync(response.Id, cancellationToken);
+            var owned = companies.FirstOrDefault(c => c.OwnerUserId == response.Id) ?? companies.FirstOrDefault();
+            if (owned is not null)
+                dto.Company = CompanyContextDTO.Build(owned, owned.OwnerUserId == response.Id);
+        }
+
+        return Ok(dto);
     }
 
     [HttpPut("me")]
@@ -97,6 +118,13 @@ public class UserController(IUserService userService, IHttpContextAccessor httpC
             dto.ReceiveEmailOffers,
             dto.ReceiveWhatsappOffers,
             dto.Avatar,
+            dto.Zipcode,
+            dto.Address,
+            dto.Number,
+            dto.Complement,
+            dto.Neighborhood,
+            dto.City,
+            dto.State,
             cancellationToken);
 
         return Ok(PublicUserDTO.ModelToDTO(user));

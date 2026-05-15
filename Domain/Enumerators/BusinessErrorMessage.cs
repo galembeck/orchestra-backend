@@ -132,4 +132,22 @@ public enum BusinessErrorMessage
 
     [EnumDescription("MISSING_REQUIRED_DOCUMENTS")]
     MISSING_REQUIRED_DOCUMENTS = 42,
+
+    [EnumDescription("INVITE_NOT_FOUND")]
+    INVITE_NOT_FOUND = 43,
+
+    [EnumDescription("INVITE_EXPIRED")]
+    INVITE_EXPIRED = 44,
+
+    [EnumDescription("INVITE_ALREADY_USED")]
+    INVITE_ALREADY_USED = 45,
+
+    [EnumDescription("INVITE_EMAIL_MISMATCH")]
+    INVITE_EMAIL_MISMATCH = 46,
+
+    [EnumDescription("SERVICE_NOT_FOUND")]
+    SERVICE_NOT_FOUND = 47,
+
+    [EnumDescription("SERVICE_CATEGORY_NOT_FOUND")]
+    SERVICE_CATEGORY_NOT_FOUND = 48,
 }

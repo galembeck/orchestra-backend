@@ -29,7 +29,15 @@ public static class NativeInjector
         services.AddScoped<ICompanyRepository, CompanyRepository>();
         services.AddScoped<ICompanyDocumentRepository, CompanyDocumentRepository>();
         services.AddScoped<ICompanyMemberRepository, CompanyMemberRepository>();
+        services.AddScoped<ICompanyInvitationRepository, CompanyInvitationRepository>();
         services.AddScoped<ICompanyService, CompanyService>();
+        #endregion
+
+        #region .: SERVICE :.
+        services.AddScoped<IServiceCategoryRepository, ServiceCategoryRepository>();
+        services.AddScoped<IServiceRepository, ServiceRepository>();
+        services.AddScoped<IServiceCategoryService, ServiceCategoryService>();
+        services.AddScoped<IServiceManagementService, ServiceManagementService>();
         #endregion
 
         #region .: RBAC :.
@@ -42,8 +50,7 @@ public static class NativeInjector
 
         #region .: FILE STORAGE / EMAIL :.
         services.AddScoped<IFileStorageService, FileStorageService>();
-        // EMAIL SENDING TEMPORARILY DISABLED — uncomment to re-enable.
-        // services.AddScoped<IEmailService, EmailService>();
+        services.AddScoped<IEmailService, EmailService>();
         #endregion
     }
 }

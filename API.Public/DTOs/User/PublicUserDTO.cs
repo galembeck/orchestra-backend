@@ -39,6 +39,11 @@ public class PublicUserDTO : PublicBaseDTO<User>
 
 
 
+    public WorkerContextDTO? Worker { get; set; }
+    public CompanyContextDTO? Company { get; set; }
+
+
+
     public PublicUserDTO(User o) : base(o)
     {
         if (o == null) return;
@@ -53,13 +58,17 @@ public class PublicUserDTO : PublicBaseDTO<User>
         ReceiveWhatsappOffers = o.ReceiveWhatsappOffers;
         ReceiveEmailOffers = o.ReceiveEmailOffers;
         AvatarUrl = o.AvatarUrl;
-        Zipcode = o.Zipcode;
-        Address = o.Address;
-        Number = o.Number;
-        Complement = o.Complement;
-        Neighborhood = o.Neighborhood;
-        City = o.City;
-        State = o.State;
+
+        if (o.AccountType == Domain.Enumerators.AccountType.CLIENT)
+        {
+            Zipcode = o.Zipcode ?? string.Empty;
+            Address = o.Address ?? string.Empty;
+            Number = o.Number ?? string.Empty;
+            Complement = o.Complement;
+            Neighborhood = o.Neighborhood ?? string.Empty;
+            City = o.City ?? string.Empty;
+            State = o.State ?? string.Empty;
+        }
         CreatedAt = o.CreatedAt;
         LastAccessAt = o.LastAccessAt;
     }

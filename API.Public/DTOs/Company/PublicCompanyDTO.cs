@@ -28,6 +28,14 @@ public class PublicCompanyDTO
     public string? RejectionReason { get; set; }
     public DateTimeOffset CreatedAt { get; set; }
 
+    // Onboarding configuration
+    public string? OpeningHour { get; set; }
+    public string? ClosingHour { get; set; }
+    public TeamSize? TeamSize { get; set; }
+    public int? ServiceRadius { get; set; }
+    public List<ServiceType>? ServiceTypes { get; set; }
+    public CompanySchedule? Schedule { get; set; }
+
     public static PublicCompanyDTO ModelToDTO(Company c) => new()
     {
         Id = c.Id,
@@ -49,6 +57,16 @@ public class PublicCompanyDTO
         ApprovedAt = c.ApprovedAt,
         RejectionReason = c.RejectionReason,
         CreatedAt = c.CreatedAt,
+        OpeningHour = c.OpeningHour?.ToString("HH:mm"),
+        ClosingHour = c.ClosingHour?.ToString("HH:mm"),
+        TeamSize = c.TeamSize,
+        ServiceRadius = c.ServiceRadius,
+        ServiceTypes = c.ServiceTypes.HasValue
+            ? Enum.GetValues<ServiceType>()
+                  .Where(f => c.ServiceTypes.Value.HasFlag(f))
+                  .ToList()
+            : null,
+        Schedule = c.Schedule,
     };
 
     public static List<PublicCompanyDTO> ModelToDTO(IEnumerable<Company> list) =>

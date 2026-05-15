@@ -2,6 +2,7 @@
   <Folder Name="/Solution Items/">
     <File Path=".editorconfig" />
   </Folder>
+  <Project Path="API.Admin/API.Admin.csproj" Id="44874935-cf24-4eaa-a59a-fec4046528ee" />
   <Project Path="API.Public/API.Public.csproj" />
   <Project Path="Domain/Domain.csproj" />
   <Project Path="IoC/IoC.csproj" Id="535d902c-0645-46e4-95d3-31afd08e6980" />

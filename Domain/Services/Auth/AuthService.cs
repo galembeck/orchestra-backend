@@ -368,10 +368,6 @@ public class AuthService : IAuthService
                 u.PasswordChangeToken          = token;
                 u.PasswordChangeTokenExpiresAt = expiresAt;
             });
-
-        // EMAIL SENDING TEMPORARILY DISABLED — uncomment to re-enable.
-        // _backgroundJobClient.Enqueue<IEmailService>(s =>
-        //     s.SendPasswordRecoveryEmailAsync(user.Name, user.Email, token, expiresAt.UtcDateTime));
     }
 
     public async Task<bool> VerifyPasswordRecoveryTokenAsync(string email, string token, CancellationToken cancellationToken = default)

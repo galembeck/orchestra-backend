@@ -4,8 +4,7 @@ using Domain.Constants;
 using Domain.Services;
 using Domain.Utils.Constants;
 using IoC;
-// EMAIL SENDING TEMPORARILY DISABLED — uncomment to re-enable.
-// using Resend;
+using Resend;
 
 namespace API.Public.Extensions;
 
@@ -24,8 +23,7 @@ public static class ServiceCollectionExtensions
         services.AddHttpContextAccessor();
 
         services.ConfigureHangfire(configuration);
-        // EMAIL SENDING TEMPORARILY DISABLED — uncomment to re-enable.
-        // services.ConfigureResend();
+        services.ConfigureResend();
         services.ConfigureInjections();
         services.AddSignalR();
         services.AddAuthorization();
@@ -55,16 +53,14 @@ public static class ServiceCollectionExtensions
         });
     }
 
-    // EMAIL SENDING TEMPORARILY DISABLED — uncomment (and the `using Resend;`
-    // line at the top) to re-enable.
-    // private static void ConfigureResend(this IServiceCollection services)
-    // {
-    //     services.AddOptions();
-    //     services.AddHttpClient<ResendClient>();
-    //     services.Configure<ResendClientOptions>(o =>
-    //     {
-    //         o.ApiToken = Constant.Settings.EmailServiceSettings.ApiToken;
-    //     });
-    //     services.AddTransient<IResend, ResendClient>();
-    // }
+    private static void ConfigureResend(this IServiceCollection services)
+    {
+        services.AddOptions();
+        services.AddHttpClient<ResendClient>();
+        services.Configure<ResendClientOptions>(o =>
+        {
+            o.ApiToken = Constant.Settings.EmailServiceSettings.ApiToken;
+        });
+        services.AddTransient<IResend, ResendClient>();
+    }
 }

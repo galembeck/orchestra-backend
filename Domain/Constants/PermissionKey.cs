@@ -19,11 +19,11 @@ public static class PermissionKey
     public const string MemberUpdateRole         = "member:update-role";
     public const string MemberDelete             = "member:delete";
 
-    // Projects (services that the company offers)
-    public const string ProjectList              = "project:list";
-    public const string ProjectCreate            = "project:create";
-    public const string ProjectUpdate            = "project:update";
-    public const string ProjectDelete            = "project:delete";
+    // Services that the company offers
+    public const string ServiceList              = "service:list";
+    public const string ServiceCreate            = "service:create";
+    public const string ServiceUpdate            = "service:update";
+    public const string ServiceDelete            = "service:delete";
 
     // Billing
     public const string BillingRead              = "billing:read";
@@ -40,7 +40,7 @@ public static class PermissionKey
         CompanyRead, CompanyUpdate, CompanyDelete, CompanyTransferOwnership,
         CompanyApprove, CompanyReject,
         MemberList, MemberInvite, MemberRevokeInvite, MemberUpdateRole, MemberDelete,
-        ProjectList, ProjectCreate, ProjectUpdate, ProjectDelete,
+        ServiceList, ServiceCreate, ServiceUpdate, ServiceDelete,
         BillingRead, BillingExport,
         RoleRead, RoleCreate, RoleUpdate, RoleDelete,
     };

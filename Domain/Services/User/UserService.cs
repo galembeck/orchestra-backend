@@ -27,15 +27,15 @@ public class UserService(
         {
             CheckAndSanitizeCellphone(user);
 
-            using var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
+            User userSaved;
+            using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                userSaved = await InsertClientAndCheckSecurityInfo(user, securityInfo);
+                scope.Complete();
+            }
 
-            var userSaved = await InsertClientAndCheckSecurityInfo(user, securityInfo);
-
-            scope.Complete();
-
-            // EMAIL SENDING TEMPORARILY DISABLED — uncomment to re-enable.
-            // _backgroundJobClient.Enqueue<IEmailService>(s =>
-            //     s.SendWelcomeEmailAsync(userSaved.Name, userSaved.Email));
+            _backgroundJobClient.Enqueue<IEmailService>(s =>
+                s.SendWelcomeEmailAsync(userSaved.Name, userSaved.Email));
 
             return userSaved;
         }
@@ -173,6 +173,13 @@ public class UserService(
         bool? receiveEmailOffers,
         bool? receiveWhatsappOffers,
         IFormFile? avatar,
+        string? zipcode,
+        string? address,
+        string? number,
+        string? complement,
+        string? neighborhood,
+        string? city,
+        string? state,
         CancellationToken cancellationToken = default)
     {
         string? newAvatarPath = null;
@@ -211,6 +218,17 @@ public class UserService(
                 {
                     user.AvatarPath = newAvatarPath;
                     user.AvatarUrl = newAvatarUrl;
+                }
+
+                if (user.AccountType == Domain.Enumerators.AccountType.CLIENT)
+                {
+                    if (zipcode != null) user.Zipcode = zipcode;
+                    if (address != null) user.Address = address;
+                    if (number != null) user.Number = number;
+                    if (complement != null) user.Complement = complement;
+                    if (neighborhood != null) user.Neighborhood = neighborhood;
+                    if (city != null) user.City = city;
+                    if (state != null) user.State = state;
                 }
             },
             userId);

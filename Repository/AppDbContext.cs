@@ -16,6 +16,10 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<Company> Companies { get; set; }
     public DbSet<CompanyDocument> CompanyDocuments { get; set; }
     public DbSet<CompanyMember> CompanyMembers { get; set; }
+    public DbSet<CompanyInvitation> CompanyInvitations { get; set; }
+
+    public DbSet<ServiceCategory> ServiceCategories { get; set; }
+    public DbSet<Service> Services { get; set; }
 
     public DbSet<Role> Roles { get; set; }
     public DbSet<Permission> Permissions { get; set; }
@@ -37,6 +41,14 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         modelBuilder.Entity<CompanyMember>()
             .HasIndex(m => new { m.CompanyId, m.UserId })
             .IsUnique();
+
+        modelBuilder.Entity<CompanyInvitation>().HasIndex(i => i.Token).IsUnique();
+        modelBuilder.Entity<CompanyInvitation>().HasIndex(i => new { i.CompanyId, i.Email });
+
+        modelBuilder.Entity<ServiceCategory>().HasIndex(c => c.Slug).IsUnique();
+        modelBuilder.Entity<Service>().HasIndex(s => s.CompanyId);
+        modelBuilder.Entity<Service>().HasIndex(s => s.CategoryId);
+        modelBuilder.Entity<Service>().Property(s => s.Price).HasColumnType("decimal(18,2)");
 
         modelBuilder.Entity<Permission>().HasIndex(p => p.Key).IsUnique();
         modelBuilder.Entity<Role>().HasIndex(r => new { r.CompanyId, r.Key });

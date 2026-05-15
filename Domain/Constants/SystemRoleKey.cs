@@ -24,7 +24,7 @@ public static class SystemRoleKey
                 PermissionKey.CompanyTransferOwnership,
                 PermissionKey.MemberList, PermissionKey.MemberInvite, PermissionKey.MemberRevokeInvite,
                 PermissionKey.MemberUpdateRole, PermissionKey.MemberDelete,
-                PermissionKey.ProjectList, PermissionKey.ProjectCreate, PermissionKey.ProjectUpdate, PermissionKey.ProjectDelete,
+                PermissionKey.ServiceList, PermissionKey.ServiceCreate, PermissionKey.ServiceUpdate, PermissionKey.ServiceDelete,
                 PermissionKey.BillingRead, PermissionKey.BillingExport,
                 PermissionKey.RoleRead, PermissionKey.RoleCreate, PermissionKey.RoleUpdate, PermissionKey.RoleDelete,
             },
@@ -36,7 +36,7 @@ public static class SystemRoleKey
                 PermissionKey.CompanyRead, PermissionKey.CompanyUpdate, PermissionKey.CompanyDelete,
                 PermissionKey.MemberList, PermissionKey.MemberInvite, PermissionKey.MemberRevokeInvite,
                 PermissionKey.MemberUpdateRole, PermissionKey.MemberDelete,
-                PermissionKey.ProjectList, PermissionKey.ProjectCreate, PermissionKey.ProjectUpdate, PermissionKey.ProjectDelete,
+                PermissionKey.ServiceList, PermissionKey.ServiceCreate, PermissionKey.ServiceUpdate, PermissionKey.ServiceDelete,
                 PermissionKey.BillingRead, PermissionKey.BillingExport,
                 PermissionKey.RoleRead, PermissionKey.RoleCreate, PermissionKey.RoleUpdate, PermissionKey.RoleDelete,
             },
@@ -48,8 +48,8 @@ public static class SystemRoleKey
                 PermissionKey.CompanyRead,
                 PermissionKey.MemberList,
                 PermissionKey.MemberDelete,
-                PermissionKey.ProjectList, PermissionKey.ProjectCreate,
-                PermissionKey.ProjectUpdate, PermissionKey.ProjectDelete,
+                PermissionKey.ServiceList, PermissionKey.ServiceCreate,
+                PermissionKey.ServiceUpdate, PermissionKey.ServiceDelete,
             },
 
             // Billing: read-only on members/projects, full access to billing.
@@ -57,7 +57,7 @@ public static class SystemRoleKey
             {
                 PermissionKey.CompanyRead,
                 PermissionKey.MemberList,
-                PermissionKey.ProjectList,
+                PermissionKey.ServiceList,
                 PermissionKey.BillingRead, PermissionKey.BillingExport,
             },
         };

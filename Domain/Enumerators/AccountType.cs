@@ -9,4 +9,7 @@ public enum AccountType
 
     [EnumDescription("COMPANY")]
     COMPANY = 2,
+
+    [EnumDescription("WORKER")]
+    WORKER = 3,
 }

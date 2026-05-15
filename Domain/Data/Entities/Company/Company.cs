@@ -28,6 +28,14 @@ public class Company : BaseEntity, IBaseEntity<Company>
     public DateTimeOffset? ApprovedAt { get; set; }
     public string? RejectionReason { get; set; }
 
+    // Onboarding configuration fields
+    public TimeOnly? OpeningHour { get; set; }
+    public TimeOnly? ClosingHour { get; set; }
+    public TeamSize? TeamSize { get; set; }
+    public int? ServiceRadius { get; set; }
+    public ServiceType? ServiceTypes { get; set; }
+    public CompanySchedule? Schedule { get; set; }
+
     public Company WithoutRelations(Company entity)
     {
         if (entity == null)
@@ -51,6 +59,12 @@ public class Company : BaseEntity, IBaseEntity<Company>
             ApprovedBy = entity.ApprovedBy,
             ApprovedAt = entity.ApprovedAt,
             RejectionReason = entity.RejectionReason,
+            OpeningHour = entity.OpeningHour,
+            ClosingHour = entity.ClosingHour,
+            TeamSize = entity.TeamSize,
+            ServiceRadius = entity.ServiceRadius,
+            ServiceTypes = entity.ServiceTypes,
+            Schedule = entity.Schedule,
         };
 
         newEntity.InitializeInstance(entity);
